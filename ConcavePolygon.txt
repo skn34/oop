@@ -1,0 +1,40 @@
+#include <graphics.h>
+#include <iostream.h>
+#include <stdlib.h>
+initgraphics();
+
+void ffill(int x, int y, int o_col, int n_col) {
+    int current = getpixel(x, y);
+    if (current == o_col) {
+        putpixel(x, y, n_col);
+        ffill(x + 1, y, o_col, n_col);
+        ffill(x - 1, y, o_col, n_col);
+        ffill(x, y + 1, o_col, n_col);
+        ffill(x, y - 1, o_col, n_col);
+    }
+}
+
+int main() {
+    int x1, y1, x2, y2, x3, y3, xavg, yavg;
+    int gdriver = DETECT, gmode;
+    initgraph(&gdriver, &gmode, "c:\\turboc3\\bgi");
+
+    cout << " \n\t Enter the points of triangle";
+    setcolor(1);
+    cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3;
+    xavg = (int)(x1 + x2 + x3) / 3;
+    yavg = (int)(y1 + y2 + y3) / 3;
+    line(x1, y1, x2, y2);
+    line(x2, y2, x3, y3);
+    line(x3, y3, x1, y1);
+
+    // Add a delay to see the result
+    // Delay for 2000 milliseconds (2 seconds)
+
+    ffill(xavg, yavg, BLACK, RED);
+    
+    // Close the graphics window after a key press
+    
+
+    return 0;
+}

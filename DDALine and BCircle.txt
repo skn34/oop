@@ -1,0 +1,93 @@
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+#include<dos.h>
+#include<graphics.h>
+class cglab
+{
+   public:
+   void drawCircle(int xc, int yc, int x, int y)
+   {
+       putpixel(xc+x, yc+y, WHITE);
+       putpixel(xc-x, yc+y, WHITE);
+       putpixel(xc+x, yc-y, WHITE);
+       putpixel(xc-x, yc-y, WHITE);
+       putpixel(xc+y, yc+x, WHITE);
+       putpixel(xc-y, yc+x, WHITE);
+       putpixel(xc+y, yc-x, WHITE);
+       putpixel(xc-y, yc-x, WHITE);
+   }
+   void circleBres(int xc, int yc, int r)
+   {
+       int x = 0, y = r;
+       int d = 3 - 2 * r;
+       drawCircle(xc, yc, x, y);
+ 
+       while (y >= x)
+       {
+           x++;
+           if (d > 0)
+           {
+               y--;
+               d = d + 4 * (x - y) + 10;
+           }
+           else
+               d = d + 4 * x + 6;
+           drawCircle(xc, yc, x, y);
+           //delay(50);
+       }
+   }
+   cglab()
+   {
+       dda(0,0,640,0);//TopLine
+       dda(638,0,638,480);//RightLine
+       dda(0,479,639,479);//BottomLine
+       dda(0,0,0,479);//LeftLine
+       putpixel(320,240,WHITE);//Center
+   }
+   void tri(int x0,int y0,int x1,int y1,int x2,int y2)
+   {
+       dda(x0,y0,x1,y1);
+       dda(x1,y1,x2,y2);
+       dda(x0,y0,x2,y2);
+   }
+   void dda(int x0, int y0, int x1, int y1)
+   {
+       int i,steps;
+       float x,y,dx,dy,xinc,yinc;
+       dx = x1-x0;
+       dy = y1-y0;
+       steps = (abs(dx)>=abs(dy))? dx:dy;
+       xinc = dx/steps;
+       yinc = dy/steps;
+       x = x0;
+       y = y0;
+       i=0;
+       while(i<=steps)
+       {
+           x += xinc;
+           y += yinc;
+           putpixel(x,y,RED);
+           i++;
+       }
+   }
+};
+int main()
+{
+   int gd = DETECT,gm;
+   initgraph(&gd,&gm,"C://TURBOC3//BGI");
+   setbkcolor(BLACK);
+ 
+   cglab yash;
+ 
+   yash.tri(320,165,255,277,385,277);
+   yash.circleBres(320,240,75);
+   yash.circleBres(320,240,37);
+ 
+   getch();
+   closegraph();
+   return 0;
+ 
+}

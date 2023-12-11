@@ -1,0 +1,57 @@
+#include <graphics.h>
+#include <dos.h>
+#include <conio.h>
+
+int main() {
+    int gdriver = DETECT, gmode;
+    initgraph(&gdriver, &gmode, "C:\\Turboc3\\BGI");
+
+    int midx = getmaxx() / 2;
+    int midy = getmaxy() / 2;
+
+    int sun_radius = 30;
+    int sun_y = midy + 100;
+
+    int horizon = midy + 100;
+
+    for (int i = 0; i < 200; i++) {
+        setcolor(YELLOW);
+        setfillstyle(SOLID_FILL, YELLOW);
+        fillellipse(midx, sun_y, sun_radius, sun_radius);
+
+        delay(30);
+
+        setcolor(BLUE);
+        setfillstyle(SOLID_FILL, BLUE);
+        fillellipse(midx, sun_y, sun_radius, sun_radius);
+
+        sun_y--;
+
+        if (sun_y == horizon) {
+            break;
+        }
+    }
+
+    delay(1000);
+
+    for (int j = 0; j < 200; j++) {
+        setcolor(BLUE);
+        setfillstyle(SOLID_FILL, BLUE);
+        fillellipse(midx, sun_y, sun_radius, sun_radius);
+
+        delay(30);
+
+        setcolor(YELLOW);
+        setfillstyle(SOLID_FILL, YELLOW);
+        fillellipse(midx, sun_y, sun_radius, sun_radius);
+
+        sun_y++;
+
+        if (sun_y == midy + 100) {
+            break;
+        }
+    }
+
+    closegraph();
+    return 0;
+}
